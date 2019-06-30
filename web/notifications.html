@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="node_modules/u3.js/dist/u3.min.js"></script>
+    <script src="scripts/call_contract.js"></script>
+	<script src="scripts/client.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+    <div id="notifications">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">链恋笔记本</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-list">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active"><a class="nav-link" href="account.html">个人中心</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">发现</a></li>
+                    </ul>
+                    <div>
+                        <a href="notifications.html">
+                            <img v-bind:src="avatar" style="height: 2rem; width: 2rem; border-radius: 0.3rem">
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <div class="row justify-content-center">
+                <ul class="zf-tab-list">
+                    <li id="my_proposals" v-on:click="change_tab($event)"
+                        v-bind:class="{'zf-tab-selected':cur_tab=='my_proposals'}">我发起的笔记本</li>
+                    <li id="unauthed_proposals" v-on:click="change_tab($event)"
+                        v-bind:class="{'zf-tab-selected':cur_tab=='unauthed_proposals'}">邀请我参与的笔记本</li>
+                    <li id="friend_list" v-on:click="change_tab($event)"
+                        v-bind:class="{'zf-tab-selected':cur_tab=='friend_list'}">好友请求</li>
+                </ul>
+            </div>
+            <div v-show="cur_tab=='my_proposals'" v-for="proposal in my_proposals" class="row">
+                <div class="zf-card  flex-grow-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div style="display: flex; align-items: flex-end">
+                                <div class="zf-text-block" style="font-size: 19px">
+                                    {{proposal.name}}
+                                </div>
+                                <div class="zf-text-block" style="font-size: 15px">
+                                    {{proposal.desc}}
+                                </div>
+                            </div>
+                            <hr>
+                            <div
+                                style="margin-left: 5px; margin-right: 5px; margin-top:10px; display: flex; align-items: flex-start">
+                                <div class="zf-text-block" style="font-size: 15px">
+                                    待确认:
+                                </div>
+                                <div class="zf-sm-user-pic-list">
+                                    <figure v-for="user in proposal.unauthed">
+                                        <img v-bind:src="avatar_dict[user]">
+                                        <figcaption class="text-center">{{user}}</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="zf-text-block" style="font-size: 15px">
+                                    已同意:
+                                </div>
+                                <div class="zf-sm-user-pic-list">
+                                    <figure v-for="user in proposal.authed">
+                                        <img v-bind:src="avatar_dict[user]">
+                                        <figcaption class="text-center">{{user}}</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="zf-text-block" style="font-size: 15px">
+                                    已放弃:
+                                </div>
+                                <div class="zf-sm-user-pic-list">
+                                    <figure v-for="user in proposal.rejected">
+                                        <img v-bind:src="avatar_dict[user]">
+                                        <figcaption class="text-center">{{user}}</figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-show="cur_tab=='unauthed_proposals'" v-for="proposal in unauthed_proposals" class="row">
+                <div class="zf-card flex-grow-1">
+                    <div style="flex-grow: 1">
+                        <div style="display: flex; align-items: flex-end">
+                            <div class="zf-text-block" style="font-size: 19px">
+                                {{proposal.name}}
+                            </div>
+                            <div class="zf-text-block" style="font-size: 15px">
+                                {{proposal.desc}}
+                            </div>
+                            <div class="zf-text-block text-muted">
+                                创建人:
+                            </div>
+                            <div class="zf-sm-user-pic-list" style="margin-top:-10px;margin-bottom:-10px">
+                                <figure>
+                                    <img v-bind:src="avatar_dict[proposal.creator]">
+                                    <figcaption class="text-center">{{proposal.creator}}</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        <hr>
+                        <div
+                            style="margin-left: 5px; margin-right: 5px; margin-top:10px; display: flex; align-items: flex-start">
+                            <div class="zf-text-block" style="font-size: 15px">
+                                待确认:
+                            </div>
+                            <div class="zf-sm-user-pic-list">
+                                <figure v-for="user in proposal.unauthed">
+                                    <img v-bind:src="avatar_dict[user]">
+                                    <figcaption class="text-center">{{user}}</figcaption>
+                                </figure>
+                            </div>
+                            <div class="zf-text-block" style="font-size: 15px">
+                                已同意:
+                            </div>
+                            <div class="zf-sm-user-pic-list">
+                                <figure v-for="user in proposal.authed">
+                                    <img v-bind:src="avatar_dict[user]">
+                                    <figcaption class="text-center">{{user}}</figcaption>
+                                </figure>
+                            </div>
+                            <div class="zf-text-block" style="font-size: 15px">
+                                已放弃:
+                            </div>
+                            <div class="zf-sm-user-pic-list">
+                                <figure v-for="user in proposal.rejected">
+                                    <img v-bind:src="avatar_dict[user]">
+                                    <figcaption class="text-center">{{user}}</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; align-items: center; margin: 10px">
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-primary">
+                            同意该邀请
+                        </button>
+                        <button class="btn btn-warning">
+                            拒绝该邀请
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div v-show="cur_tab=='friend_list'" class="row">
+                <div class="zf-notebook-friend-list">
+                    <div v-for="proposal in friend_proposals" style="display: flex">
+                        <figure class="zf-notebook-friend-pic">
+                            <img v-bind:src="avatar_dict[proposal]">
+                            <figcaption>{{proposal}}</figcaption>
+                        </figure>
+                        <div class="btn-group-vertical" style="margin: 10px">
+                            <button class="btn btn-sm btn-primary">同意</button>
+                            <button class="btn btn-sm btn-warning">拒绝</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/notifications.js"></script>
+</body>

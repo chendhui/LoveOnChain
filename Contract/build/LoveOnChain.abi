@@ -1,0 +1,456 @@
+{
+  "version": "ultraio:1.0",
+  "types": [
+    {
+      "new_type_name": "u32",
+      "type": "uint32"
+    },
+    {
+      "new_type_name": "boolean",
+      "type": "bool"
+    },
+    {
+      "new_type_name": "account_name",
+      "type": "name"
+    }
+  ],
+  "structs": [
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "age",
+          "type": "u32"
+        },
+        {
+          "name": "sex",
+          "type": "string"
+        },
+        {
+          "name": "passwd",
+          "type": "string"
+        },
+        {
+          "name": "lover_name",
+          "type": "string"
+        },
+        {
+          "name": "asset",
+          "type": "u32"
+        }
+      ],
+      "base": "",
+      "name": "register"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "passwd",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "login"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "get_my_account_info"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "get_account_info"
+    },
+    {
+      "fields": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "passwd",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "modifyUserInfo"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "new_friend",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "addFriends"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "getFriends"
+    },
+    {
+      "fields": [
+        {
+          "name": "nb_id",
+          "type": "string"
+        },
+        {
+          "name": "nb_name",
+          "type": "string"
+        },
+        {
+          "name": "desc",
+          "type": "string"
+        },
+        {
+          "name": "owner",
+          "type": "string[]"
+        },
+        {
+          "name": "isPrivate",
+          "type": "boolean"
+        }
+      ],
+      "base": "",
+      "name": "createNotebook"
+    },
+    {
+      "fields": [
+        {
+          "name": "nb_id",
+          "type": "string"
+        },
+        {
+          "name": "writer",
+          "type": "string"
+        },
+        {
+          "name": "date_time",
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "createRecord"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "getNotebook"
+    },
+    {
+      "fields": [
+        {
+          "name": "nb_id",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "getRecords"
+    },
+    {
+      "fields": [
+        {
+          "name": "account",
+          "type": "account_name"
+        }
+      ],
+      "base": "",
+      "name": "pubkeyOf"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "age",
+          "type": "u32"
+        },
+        {
+          "name": "sex",
+          "type": "string"
+        },
+        {
+          "name": "passwd",
+          "type": "string"
+        },
+        {
+          "name": "lover_name",
+          "type": "string"
+        },
+        {
+          "name": "asset",
+          "type": "u32"
+        }
+      ],
+      "base": "",
+      "name": "User"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "friends",
+          "type": "string[]"
+        }
+      ],
+      "base": "",
+      "name": "Friends"
+    },
+    {
+      "fields": [
+        {
+          "name": "nb_id",
+          "type": "string"
+        },
+        {
+          "name": "nb_name",
+          "type": "string"
+        },
+        {
+          "name": "desc",
+          "type": "string"
+        },
+        {
+          "name": "owner",
+          "type": "string[]"
+        },
+        {
+          "name": "isPrivate",
+          "type": "boolean"
+        }
+      ],
+      "base": "",
+      "name": "Notebook"
+    },
+    {
+      "fields": [
+        {
+          "name": "nb_id",
+          "type": "string"
+        },
+        {
+          "name": "writer",
+          "type": "string[]"
+        },
+        {
+          "name": "date_time",
+          "type": "string[]"
+        },
+        {
+          "name": "text",
+          "type": "string[]"
+        }
+      ],
+      "base": "",
+      "name": "Record"
+    },
+    {
+      "fields": [
+        {
+          "name": "u_id",
+          "type": "string"
+        },
+        {
+          "name": "nb_ids",
+          "type": "string[]"
+        },
+        {
+          "name": "nb_names",
+          "type": "string[]"
+        },
+        {
+          "name": "nb_desc",
+          "type": "string[]"
+        },
+        {
+          "name": "share",
+          "type": "boolean[]"
+        }
+      ],
+      "base": "",
+      "name": "R1u1nb"
+    }
+  ],
+  "actions": [
+    {
+      "ricardian_contract": "",
+      "name": "register",
+      "type": "register",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "login",
+      "type": "login",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "get_my_account_info",
+      "type": "get_my_account_info",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "get_account_info",
+      "type": "get_account_info",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "modifyUserInfo",
+      "type": "modifyUserInfo",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "addFriends",
+      "type": "addFriends",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "getFriends",
+      "type": "getFriends",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "createNotebook",
+      "type": "createNotebook",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "createRecord",
+      "type": "createRecord",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "getNotebook",
+      "type": "getNotebook",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "getRecords",
+      "type": "getRecords",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "pubkeyOf",
+      "type": "pubkeyOf",
+      "ability": "normal"
+    }
+  ],
+  "tables": [
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "tb.user",
+      "type": "User"
+    },
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "tb.friends",
+      "type": "Friends"
+    },
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "tb.notebook",
+      "type": "Notebook"
+    },
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "tb.record",
+      "type": "Record"
+    },
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "tb.r1u1nb",
+      "type": "R1u1nb"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/axios/dist/axios.js"></script>
+	<script src="node_modules/u3.js/dist/u3.min.js"></script>
+    <script src="scripts/call_contract.js"></script>
+    <script src="scripts/client.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+    <div id="account">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">链恋笔记本</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar-list">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active"><a class="nav-link" href="account.html">个人中心</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">发现</a></li>
+                    </ul>
+                    <div>
+                        <a href="notifications.html">
+                            <img v-bind:src="account_info.avatar"
+                                style="height: 2rem; width: 2rem; border-radius: 0.3rem">
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <div class="row">
+                <div class="zf-account-header">
+                    <h3 class="text-muted" style="float: left">我的笔记本</h3>
+                    <button type="button" class="btn btn-primary" style="float:right" data-toggle="modal"
+                        data-target="#new-notebook-modal">添加笔记本</button>
+                </div>
+            </div>
+            <div class="zf-card-container">
+                <div class="zf-card"
+                    v-for="notebook in account_info.notebooks">
+                    <div class="row" style="align-items: flex-end">
+                        <div class="text-dark zf-text-block" style="font-size: 19px">
+                            <a v-bind:href="'notebook.html?' + 'id=' + notebook.id+ '&&name=' + notebook.name+ '&&desc=' + notebook.desc">{{notebook.name}}</a>
+                        </div>
+                        <div class="text-center text-info zf-text-block" style="font-size: 15px">
+                            {{notebook.desc}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div>
+                            <div class="text-dark" style="display: inline-block">我的好友列表</div>
+                            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#new-friend-modal"
+                                style="display:inline-block; margin-left: 20px">+</button>
+                        </div>
+                        <div class="zf-notebook-friend-list">
+                            <figure class="zf-notebook-friend-pic" v-for="friend in account_info.friends">
+                                <img v-bind:src="friend.avatar">
+                                <figcaption>{{friend.name}}</figcaption>
+                            </figure>
+							
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="new-notebook-modal" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">创建新笔记本</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid gray">
+                            创建一个新的笔记本。注意笔记本的id、名称、描述将不可修改。</div>
+                        <div class="form-group">
+                            <div class="col-form-label">笔记本id</div>
+                            <div class="zf-error-lable"
+                                v-show="!v_check_syntax('notebook_id', input.new_notebook_modal.id)">
+                                不多于16字符的数字、字母、下划线组合，且开头为字母</div>
+                            <input type="text" class="form-control"
+                                v-bind:class="{'zf-has-error':!v_check_syntax('notebook_id', input.new_notebook_modal.id)}"
+                                placeholder="要想笔记本更加私密，务必使用复杂的id哦" v-model="input.new_notebook_modal.id">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-form-label">笔记本名称</div>
+                            <input id="input-nb-name" type="text" class="form-control"
+                                v-model="input.new_notebook_modal.name">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-form-label">笔记本描述</div>
+                            <textarea type="text" class="form-control"
+                                v-model="input.new_notebook_modal.desc"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" v-on:click="create_notebook()">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="new-friend-modal" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">添加好友</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div style="padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid gray">
+                            根据用户名添加好友</div>
+                        <div class="form-group">
+                            <div class="col-form-label">用户名</div>
+                            <input type="text" class="form-control" placeholder="你想添加的用户的用户名"
+                                v-model="input.new_friend_modal.id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/account.js"></script>
+</body>
+
+</html>

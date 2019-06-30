@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/vue/dist/vue.js"></script>
+    <script src="node_modules/md5-js/md5.js"></script>
+    <script src="node_modules/axios/dist/axios.js"></script>
+	<script src="node_modules/u3.js/dist/u3.min.js"></script>
+    <script src="scripts/call_contract.js"></script>
+	<script src="scripts/client.js"></script>
+	
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/login.css">
+    <style type="text/css">
+        .selected {
+            font-weight: bolder
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login" class="container" style="margin-top:30px;margin-bottom:15px;max-width: 600px;">
+        <div class="row justify-content-around">
+            <h1 class="text-center">
+                链恋笔记本
+            </h1>
+        </div>
+        <div class="row" style="margin-top: 40px"></div>
+        <div class="row justify-content-around">
+            <div id="login-tab" class="col-5 zf-tab-title text-muted text-center" v-on:click="switch_tab($event)">
+                <div v-bind:class="{'zf-selected': selected=='login-tab'}" style="padding-left:30px; padding-right: 30px">登录</div>
+            </div>
+            <div id="register-tab" class="col-5 zf-tab-title text-muted text-center" v-on:click="switch_tab($event)">
+                <div v-bind:class="{'zf-selected': selected=='register-tab'}" style="padding-left:30px; padding-right: 30px">注册</div>
+            </div>
+        </div>
+        <div v-show="selected=='login-tab'" class="container w-75 zf-tab-body">
+            <!--此处的div必须使用 align-items:center, 因为没有多行的情况下align-content无效，会变成stretch, 导致文字无法居中-->
+            <div class="row zf-horizental-input-row">
+                <div class="zf-horizental-input-label">
+                    <div>用户名</div>
+                </div>
+                <input class="col-8 form-control" v-model="input.id">
+            </div>
+            <div class="row zf-horizental-input-row">
+                <div class="zf-horizental-input-label">
+                    <div>私钥</div>
+                </div>
+                <input class="col-8 form-control" v-model="input.priv_key">
+            </div>
+            <div class="row zf-horizental-input-row">
+                <button class="btn btn-primary" style="padding-left: 20px; padding-right: 20px" v-on:click="login()">
+                    登录
+                </button>
+            </div>
+        </div>
+        <div v-show="selected=='register-tab'" class="container w-75 zf-tab-body">
+            <div class="row zf-horizental-input-row">
+                <div class="zf-horizental-input-label">
+                    <div>用户名</div>
+                </div>
+                <input class="col-8 form-control" v-model="input.id">
+            </div>
+            <div class="row zf-horizental-input-row">
+                <div class="zf-horizental-input-label">
+                    <div>私钥</div>
+                </div>
+                <input class="col-8 form-control" v-model="input.priv_key">
+            </div>
+            <div class="row zf-horizental-input-row">
+                <div class="zf-horizental-input-label">
+                    <div>昵称</div>
+                </div>
+                <input class="col-8 form-control" v-model="input.name">
+            </div>
+            <div class="row zf-horizental-input-row">
+                <button class="btn btn-primary" style="padding-left: 20px; padding-right: 20px" v-on:click="register()">
+                    注册
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/login.js"></script>
+	
+	
+	
+	<script>
+              let func = async () => {
+                  let u3 = U3.createU3({
+					  httpEndpoint: 'http://pioneer.natapp1.cc',
+					  httpEndpoint_history: 'http://pioneer-history.natapp1.cc',
+					  broadcast: true,
+					  debug: false,
+					  sign: true,
+					  logger: {
+						  log: console.log,
+						  error: console.error,
+						  debug: console.log
+				  },
+  chainId:'20c35b993c10b5ea1007014857bb2b8832fb8ae22e9dcfdc61dacf336af4450f',
+  keyProvider:'5J86vjJ7BrMENTmfghjdmWfZ9PDWCioQUmnMtu9Y9gmvGhpuDVz',//chendh1's private key
+  symbol: 'UGAS'
+                  });
+          
+                  
+				  let contract = await u3.contract("chendh1");
+  // 获取某个用户的好友 results = "user id = u1, friends = u2,u3"
+  let result = await contract.getFriends("u1", { authorization: [`chendh1@active`] });
+  console.log(result["processed"]["action_traces"][0]["return_value"]);
+
+                };
+                // func();
+            </script>
+</body>
+
+</html>

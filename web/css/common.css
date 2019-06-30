@@ -1,0 +1,216 @@
+input[type=text]::-ms-clear {
+    display: none;
+}
+
+.zf-account-header {
+    display: block;
+    flex: 1 1 100%;
+    margin: 25px;
+    font-size: 28px
+}
+
+.zf-card-container {
+    max-height: 300px;
+}
+
+.zf-card {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 10px;
+    border: 1px solid grey;
+    border-radius: 10px
+}
+
+.zf-text-block {
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+.zf-notebook-friend-list {
+    display: flex;
+    margin: 10px
+}
+
+.zf-notebook-friend-list .zf-notebook-friend-pic {
+    display: flex;
+    flex-flow: column;
+    width: 60px;
+    height: 70px;
+    margin: 10px;
+}
+
+.zf-notebook-friend-list .zf-notebook-friend-pic img {
+    height: 60px;
+    width: 60px;
+    border: 1px solid gray;
+    border-radius: 20px
+}
+
+.zf-notebook-friend-list .zf-notebook-friend-pic figcaption {
+    font-size: 13px;
+    text-align: center
+}
+
+
+.zf-notebook-header {
+    margin: 25px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    font-size: 28px
+}
+
+.zf-notebook-header .zf-notebook-author-list {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.zf-notebook-header .zf-notebook-author-list .zf-notebook-author-pic {
+    display: flex;
+    flex-flow: column;
+    width: 60px;
+    height: 70px;
+    margin: 10px;
+}
+
+.zf-notebook-header .zf-notebook-author-pic img {
+    height: 60px;
+    width: 60px;
+    border: 1px solid gray;
+    border-radius: 20px
+}
+
+.zf-notebook-header .zf-notebook-author-pic figcaption {
+    font-size: 13px;
+    text-align: center
+}
+
+.zf-content-container {
+    display: block;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.zf-content-container .zf-content-mark {
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+    border: 1px solid gray;
+    border-radius: 20px
+}
+
+
+.zf-content-container .zf-content-author {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    display: flex
+}
+
+.zf-content-container .zf-content-date {
+    font-size: 12px;
+    display: flex
+}
+
+
+.zf-content-container .zf-content-body {
+    margin-left: 30px;
+    margin-right: 30px;
+    border-left: 2px solid gray;
+}
+
+.zf-content-container .zf-content-body .zf-content-body-text {
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    white-space: pre-line
+}
+
+.zf-reply-box {
+    margin: 30px;
+}
+
+.zf-reply-box .zf-reply-box-label {
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 18px;
+    color: #404040;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.zf-reply-box .zf-reply-text {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 15px;
+    max-width: 500px;
+    height: 120px
+}
+
+.zf-tab-list {
+    margin: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background: lightblue;
+    color: gray;
+    list-style: none;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+}
+
+.zf-tab-list li {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer
+}
+
+.zf-tab-selected {
+    background: white;
+    color: black
+}
+
+.zf-sm-user-pic-list {
+    margin-top: 0px;
+    margin-bottom: 0px
+}
+
+.zf-sm-user-pic-list figure {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0px;
+    margin-bottom: 0px
+}
+
+.zf-sm-user-pic-list img {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px
+}
+
+.zf-sm-user-pic-list figcaption {
+    font-size: 13px;
+    color: darkblue
+}
+
+.zf-has-error {
+    border: 1px solid darkred
+}
+
+.zf-error-lable {
+    font-size: 12px;
+    color: red;
+    margin-bottom: 4px
+}
