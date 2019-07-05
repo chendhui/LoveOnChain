@@ -13,10 +13,53 @@ var notebook = new Vue({
             name: "未登录",
             avatar: "res/imgs/img1.jpg",
         },
-        contents:[]
+        contents:[],
+		input:{
+			message: ""
+		}
 
     },
     methods:{
+		add_note() {
+			let that = this
+            let next = {
+                then(res) {
+                    if(res.msg!="ok")
+                    {
+                        alert(smsgs[res.msg])
+                    }
+                    else if(res.data.dbmsg!="ok")
+                    {
+                        alert(smsgs[res.data.dbmsg])
+                    }
+                    else
+                    {
+                        alert('笔记添加成功')
+                        that.get_notebook()
+						$("#new-note").val("")
+                        
+                    }
+                   
+                },
+                catch(err) {
+                    console.log(err)
+                    alert(err)
+                }
+            }
+			let params  = window.location.search.substring(1).split('&')
+            let para_dict = new Array()
+            for(var i in params){
+                let p = params[i].split('=')
+                para_dict[p[0]] = p[1]
+            }
+            let notebook_id = para_dict["id"]
+			let name = para_dict["name"]
+			let desc = para_dict["desc"]
+			let uid = para_dict["uid"]
+            createRecord_call(notebook_id, uid, this.input.message, next)
+            
+        },
+	
         get_notebook(){
             let params  = window.location.search.substring(1).split('&')
             let para_dict = new Array()
@@ -27,6 +70,7 @@ var notebook = new Vue({
             let id = para_dict["id"]
 			let name = para_dict["name"]
 			let desc = para_dict["desc"]
+			let uid = para_dict["uid"]
             let that = this
 			//that.info = {name:"u1",author:{name:"u1",avatar:"res/imgs/img1.jpg"}
             let next = {

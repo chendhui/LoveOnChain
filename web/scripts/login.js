@@ -41,10 +41,10 @@ let login = new Vue({
             this.selected = event.currentTarget.id
         },
         register() {
-            let res = client.register_account(this.input.id, this.input.priv_key, this.input.name, "0", "", next)
+            let res = register_call(this.input.id, this.input.priv_key, this.input.name, this.input.sex, this.input.lover_id, next)
         },
         login() {
-            let res = client.login(this.input.id, this.input.priv_key, next)
+            let res = login_call(this.input.id, this.input.priv_key, next)
         }
     }
 })

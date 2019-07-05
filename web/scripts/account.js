@@ -2,6 +2,7 @@ var account = new Vue({
     el: "#account",
     data: {
         account_info: {
+			uid: "uid",
             name: "未登录",
             avatar: "res/imgs/img1.jpg",
             friends: [],
@@ -34,6 +35,7 @@ var account = new Vue({
                 alert("请检查输入！")
                 return
             }
+			let that = this
             let next = {
                 then(res) {
                     if(res.msg!="ok")
@@ -47,8 +49,9 @@ var account = new Vue({
                     else
                     {
                         alert('笔记本创建成功')
-                        this.get_my_info()
-                        $("#new-notebook-modal").modal('hide')
+						$("#new-notebook-modal").modal('hide')
+                        that.get_my_info()
+                        
                     }
                    
                 },
@@ -57,10 +60,49 @@ var account = new Vue({
                     alert(err)
                 }
             }
-            client.create_notebook("", this.input.new_notebook_modal.id, this.input.new_notebook_modal.mode,
-                this.input.new_notebook_modal.name, this.input.new_notebook_modal.desc, next)
+			
+            createNotebook_call(this.input.new_notebook_modal.id, this.input.new_notebook_modal.name, this.input.new_notebook_modal.authors,
+                 this.input.new_notebook_modal.desc, next)
             
         },
+		
+		add_friends() {
+            let that = this
+            let next = {
+                then(res) {
+                    if(res.msg!="ok")
+                    {
+                        alert(smsgs[res.msg])
+                    }
+                    else if(res.data.dbmsg!="ok")
+                    {
+                        alert(smsgs[res.data.dbmsg])
+                    }
+                    else
+                    {
+                        alert('好友添加成功')
+						$("#new-friend-modal").modal('hide')
+                        that.get_my_info()
+						
+                    }
+                   
+                },
+                catch(err) {
+                    console.log(err)
+                    alert(err)
+                }
+            }
+			let params  = window.location.search.substring(1).split('&')
+            let para_dict = new Array()
+            for(var i in params){
+                let p = params[i].split('=')
+                para_dict[p[0]] = p[1]
+            }
+            let my_id = para_dict["id"]
+            addFriends_call(my_id, this.input.new_friend_modal.id, next)
+            
+        },
+		
         get_my_info() {
 			let params  = window.location.search.substring(1).split('&')
             let para_dict = new Array()
@@ -76,7 +118,7 @@ var account = new Vue({
                 then(res) {
 
 				that.account_info = res
-				console.log(res.notebooks)
+				console.log(res)
 				
 				/***
                     if (res.msg == "ok") {
