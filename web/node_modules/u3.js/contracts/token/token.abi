@@ -1,0 +1,201 @@
+{
+  "version": "ultraio:1.0:UIP06",
+  "types": [
+    {
+      "new_type_name": "account_name",
+      "type": "name"
+    },
+    {
+      "new_type_name": "Asset",
+      "type": "asset"
+    },
+    {
+      "new_type_name": "u64",
+      "type": "uint64"
+    }
+  ],
+  "structs": [
+    {
+      "fields": [
+        {
+          "name": "issuer",
+          "type": "account_name"
+        },
+        {
+          "name": "maximum_supply",
+          "type": "Asset"
+        }
+      ],
+      "base": "",
+      "name": "create"
+    },
+    {
+      "fields": [
+        {
+          "name": "to",
+          "type": "account_name"
+        },
+        {
+          "name": "quantity",
+          "type": "Asset"
+        },
+        {
+          "name": "memo",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "issue"
+    },
+    {
+      "fields": [
+        {
+          "name": "from",
+          "type": "account_name"
+        },
+        {
+          "name": "to",
+          "type": "account_name"
+        },
+        {
+          "name": "quantity",
+          "type": "Asset"
+        },
+        {
+          "name": "memo",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "transfer"
+    },
+    {
+      "fields": [
+        {
+          "name": "sym_name",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "totalSupply"
+    },
+    {
+      "fields": [
+        {
+          "name": "sym_name",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "getSupply"
+    },
+    {
+      "fields": [
+        {
+          "name": "owner",
+          "type": "account_name"
+        },
+        {
+          "name": "sym_name",
+          "type": "string"
+        }
+      ],
+      "base": "",
+      "name": "balanceOf"
+    },
+    {
+      "fields": [
+        {
+          "name": "supply",
+          "type": "Asset"
+        },
+        {
+          "name": "max_supply",
+          "type": "Asset"
+        },
+        {
+          "name": "issuer",
+          "type": "account_name"
+        },
+        {
+          "name": "timestamp",
+          "type": "u64"
+        }
+      ],
+      "base": "",
+      "name": "CurrencyStats"
+    },
+    {
+      "fields": [
+        {
+          "name": "balance",
+          "type": "Asset"
+        }
+      ],
+      "base": "",
+      "name": "CurrencyAccount"
+    }
+  ],
+  "actions": [
+    {
+      "ricardian_contract": "",
+      "name": "create",
+      "type": "create",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "issue",
+      "type": "issue",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "transfer",
+      "type": "transfer",
+      "ability": "normal"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "totalSupply",
+      "type": "totalSupply",
+      "ability": "pureview"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "getSupply",
+      "type": "getSupply",
+      "ability": "pureview"
+    },
+    {
+      "ricardian_contract": "",
+      "name": "balanceOf",
+      "type": "balanceOf",
+      "ability": "pureview"
+    }
+  ],
+  "tables": [
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "stat",
+      "type": "CurrencyStats"
+    },
+    {
+      "index_type": "i64",
+      "keys_names": [
+        "currency"
+      ],
+      "keys_types": [
+        "uint64"
+      ],
+      "name": "accounts",
+      "type": "CurrencyAccount"
+    }
+  ]
+}

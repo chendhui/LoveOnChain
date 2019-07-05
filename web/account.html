@@ -19,7 +19,7 @@
     <div id="account">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">链恋笔记本</a>
+                <a class="navbar-brand" href="#">链上恋</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -48,7 +48,7 @@
                     v-for="notebook in account_info.notebooks">
                     <div class="row" style="align-items: flex-end">
                         <div class="text-dark zf-text-block" style="font-size: 19px">
-                            <a v-bind:href="'notebook.html?' + 'id=' + notebook.id+ '&&name=' + notebook.name+ '&&desc=' + notebook.desc">{{notebook.name}}</a>
+                            <a v-bind:href="'notebook.html?' + 'id=' + notebook.id+ '&&name=' + notebook.name+ '&&desc=' + notebook.desc+ '&&uid=' +account_info.uid">{{notebook.name}}</a>
                         </div>
                         <div class="text-center text-info zf-text-block" style="font-size: 15px">
                             {{notebook.desc}}
@@ -92,12 +92,18 @@
                             <div class="col-form-label">笔记本id</div>
                             <div class="zf-error-lable"
                                 v-show="!v_check_syntax('notebook_id', input.new_notebook_modal.id)">
-                                不多于16字符的数字、字母、下划线组合，且开头为字母</div>
+                                不多于16字符的数字、字母组合，且开头为字母</div>
                             <input type="text" class="form-control"
                                 v-bind:class="{'zf-has-error':!v_check_syntax('notebook_id', input.new_notebook_modal.id)}"
                                 placeholder="要想笔记本更加私密，务必使用复杂的id哦" v-model="input.new_notebook_modal.id">
                         </div>
                         <div class="form-group">
+                            <div class="col-form-label">笔记本拥有者</div>
+                            <input id="input-nb-name" type="text" class="form-control"
+                                placeholder="笔记本拥有者的id，多个id用逗号隔开，自己的id也得输入"
+								v-model="input.new_notebook_modal.authors">
+                        </div>
+						<div class="form-group">
                             <div class="col-form-label">笔记本名称</div>
                             <input id="input-nb-name" type="text" class="form-control"
                                 v-model="input.new_notebook_modal.name">
@@ -129,12 +135,12 @@
                             根据用户名添加好友</div>
                         <div class="form-group">
                             <div class="col-form-label">用户名</div>
-                            <input type="text" class="form-control" placeholder="你想添加的用户的用户名"
+                            <input type="text" class="form-control" placeholder="你想添加的用户的用户名id"
                                 v-model="input.new_friend_modal.id">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">确认</button>
+                            <button type="button" class="btn btn-primary" v-on:click="add_friends()">确认</button>
                         </div>
                     </div>
                 </div>

@@ -18,7 +18,7 @@
     <div id="notebook">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">链恋笔记本</a>
+                <a class="navbar-brand" href="#">链上恋</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -69,11 +69,11 @@
                     <div>
                         新的笔记
                     </div>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" v-on:click="add_note()">
                         发布笔记
                     </button>
                 </div>
-                <textarea type="text" class="zf-reply-text form-control">
+                <textarea id="new-note" type="text" class="zf-reply-text form-control" v-model="input.message">
                 </textarea>
             </div>
         </div>
