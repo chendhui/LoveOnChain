@@ -66,6 +66,7 @@ var notebook = new Vue({
             for(var i in params){
                 let p = params[i].split('=')
                 para_dict[p[0]] = p[1]
+				para_dict[p[0]]=decodeURI(p[1]); 
             }
             let id = para_dict["id"]
 			let name = para_dict["name"]
